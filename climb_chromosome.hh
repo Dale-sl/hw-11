@@ -8,6 +8,7 @@
 #include "chromosome.hh"
 
 class ClimbChromosome : public Chromosome {
+  using Chromosome::Chromosome;
   void mutate() override;
-  Chromosome* clone() override;
+  Chromosome* clone() const override;
 };
