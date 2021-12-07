@@ -6,7 +6,7 @@
 
 class TournamentDeme : public Deme{
   public:
-  
+  using Deme::Deme;
  protected:
   // Randomly select a chromosome in the population based on fitness and
   // return a pointer to that chromosome.
