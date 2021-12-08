@@ -19,7 +19,9 @@
 Deme::Deme(const Cities* cities_ptr, unsigned pop_size, double mut_rate)
  : pop_(pop_size), mut_rate_(mut_rate), generator_(rand())
 {
-  // Create random ClimbChromosomes and put into population vector
+  // Create random Chromosomes and put into population vector
+  // from testing, ClimbChromsome is faster than Chromosome,
+  // but usually results in a worse final result.
   for (auto& cp : pop_) {
     cp = new ClimbChromosome(cities_ptr);
   }

@@ -13,9 +13,4 @@ class TournamentDeme : public Deme{
   virtual Chromosome* select_parent();
 
   virtual Chromosome* tournament_selection();
-
-  std::vector<Chromosome*> pop_;  // Population of Chromosomes
-  
-
-  std::default_random_engine generator_; // A random number generator for the various methods
 };
