@@ -48,7 +48,8 @@ ClimbChromosome::mutate() {
       order_ = swapLeft->order_;
     }
   }
-  
+  delete swapLeft;
+  delete swapRight;
   assert(is_valid());
 }
 //////////////////////////////////////////////////////////////////////////////
