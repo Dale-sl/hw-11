@@ -21,35 +21,39 @@ ClimbChromosome::mutate() {
 
   // create new mutation, swap left index.
   // in the case the left index is invalid, use the last index instead.
-  ClimbChromosome* swapLeft = dynamic_cast<ClimbChromosome*>(clone());
+  vector<unsigned int> swapLeft = order_;
   if (randomIndex == 0) {
-    std::swap(swapLeft->order_[order_.size() - 1], swapLeft->order_[randomIndex]);
+    std::swap(swapLeft[order_.size() - 1], swapLeft[randomIndex]);
   } else {
-    std::swap(swapLeft->order_[randomIndex - 1], swapLeft->order_[randomIndex]);
+    std::swap(swapLeft[randomIndex - 1], swapLeft[randomIndex]);
   }
 
   // create new mutation, swap right index.
   // in the case the right index is invalid, use the first index instead.
-  ClimbChromosome* swapRight = dynamic_cast<ClimbChromosome*>(clone());
+  vector<unsigned int> swapRight = order_;
   if (randomIndex == order_.size() - 1) {
-    std::swap(swapRight->order_[0], swapRight->order_[randomIndex]);
+    std::swap(swapRight[0], swapRight[randomIndex]);
   } else {
-    std::swap(swapRight->order_[randomIndex + 1], swapRight->order_[randomIndex]);    
+    std::swap(swapRight[randomIndex + 1], swapRight[randomIndex]);    
   }
 
   // set order to the order of the best mutation
   double currentFitness = get_fitness();
-  double leftFitness = swapLeft->get_fitness();
-  double rightFitness = swapRight->get_fitness();
+  vector<unsigned int> currentOrder = order_;
+  order_ = swapLeft;
+  double leftFitness = get_fitness();
+  order_ = swapRight;
+  double rightFitness = get_fitness();
   if (currentFitness < leftFitness) {
     if (rightFitness > leftFitness) {
-      order_ = swapRight->order_;
+      order_ = swapRight;
     } else {
-      order_ = swapLeft->order_;
+      order_ = swapLeft;
     }
+  } else if (currentFitness > rightFitness) {
+    order_ = currentOrder;
   }
-  delete swapLeft;
-  delete swapRight;
+
   assert(is_valid());
 }
 //////////////////////////////////////////////////////////////////////////////
